@@ -1,86 +1,27 @@
-# qb-inventory
+Config = {}
 
-# License
+Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 
-    QBCore Framework
-    Copyright (C) 2021 Joshua Eger
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>
-
-## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-logs](https://github.com/qbcore-framework/qb-logs) - For logging transfer and other history
-- [qb-traphouse](https://github.com/qbcore-framework/qb-traphouse) - Trap house system for qbcore
-- [qb-radio](https://github.com/qbcore-framework/qb-radio) - Radio system for communication
-- [qb-drugs](https://github.com/qbcore-framework/qb-drugs) -  Drugs and Weed Planting System
-- [qb-shops](https://github.com/qbcore-framework/qb-shops) - Needed in order to add shops
-
-## Screenshots
-![General](https://i.imgur.com/GR0MDFN.png)
-![ID Card](https://i.imgur.com/C6gAOWi.png)
-![Weapon](https://i.imgur.com/RbCvHJb.png)
-![Shop](https://i.imgur.com/7Da7UEX.png)
-![Crafting](https://i.imgur.com/peONaL9.png)
-![Glovebox](https://i.imgur.com/LjDEYWa.png)
-![Trunk](https://i.imgur.com/IoGYZbv.png)
-
-## Features
-- Item crafting
-- Weapon attachment crafting
-- Stashes (Personal and/or Shared)
-- Vehicle Trunk & Glovebox
-- Weapon serial number
-- Shops
-- Item Drops
-
-## Installation
-### Manual
-- Download the script and put it in the `[qb]` directory.
-- Import `qb-inventory.sql` in your database
-- Add the following code to your server.cfg/resouces.cfg
-```
-ensure qb-core
-ensure qb-logs
-ensure qb-inventory
-ensure qb-traphouse
-ensure qb-radio
-ensure qb-drugs
-ensure qb-shops
-```
-
-## Configuration
-```
-Config = {} -- Don't touch
-
-Config.VendingObjects = { -- Props which will be considered as vending machines
+Config.VendingObjects = {
     "prop_vend_soda_01",
     "prop_vend_soda_02",
     "prop_vend_water_01"
 }
 
-Config.BinObjects = { --  Props which will be considered as trash bins
+Config.BinObjects = {
     "prop_bin_05a",
 }
 
-Config.VendingItem = { -- Shop inventory for vending machines
+Config.CraftingObject = `prop_toolchest_05`
+
+Config.VendingItem = {
     [1] = {
-        name = "kurkakola", -- Item name
-        price = 4, -- Price per item
-        amount = 50, -- Stock amount
+        name = "kurkakola",
+        price = 4,
+        amount = 50,
         info = {},
         type = "item",
-        slot = 1, -- Inventory slot item will be displayed
+        slot = 1,
     },
     [2] = {
         name = "water_bottle",
@@ -92,12 +33,12 @@ Config.VendingItem = { -- Shop inventory for vending machines
     },
 }
 
-Config.CraftingItems = { -- Crafting recipes
+Config.CraftingItems = {
     [1] = {
-        name = "lockpick", -- Item which will be gained from crafting
-        amount = 50, -- Limit
+        name = "lockpick",
+        amount = 50,
         info = {},
-        costs = { -- Requirements for crafting
+        costs = {
             ["metalscrap"] = 22,
             ["plastic"] = 32,
         },
@@ -156,11 +97,11 @@ Config.CraftingItems = { -- Crafting recipes
             ["plastic"] = 50,
             ["aluminum"] = 30,
             ["iron"] = 17,
-            ["electronickit"] = 1,
+            ["electronickit"] = 2,
         },
         type = "item",
         slot = 5,
-        threshold = 120,
+        threshold = 110,
         points = 5,
     },
     [6] = {
@@ -263,14 +204,15 @@ Config.CraftingItems = { -- Crafting recipes
     },
 }
 
-Config.AttachmentCrafting = { -- Attachment crafting recipes
-    ["location"] = {x = 88.91, y = 3743.88, z = 40.77, h = 66.5, r = 1.0}, -- Marker location
+Config.AttachmentCraftingLocation = vector3(88.91, 3743.88, 40.77)
+
+Config.AttachmentCrafting = {
     ["items"] = {
         [1] = {
-            name = "pistol_extendedclip", -- Item which will be gained from crafting
-            amount = 50, -- Limit
+            name = "pistol_extendedclip",
+            amount = 50,
             info = {},
-            costs = { -- Requirements for crafting
+            costs = {
                 ["metalscrap"] = 140,
                 ["steel"] = 250,
                 ["rubber"] = 60,
@@ -295,37 +237,35 @@ Config.AttachmentCrafting = { -- Attachment crafting recipes
             points = 2,
         },
         [3] = {
-            name = "rifle_extendedclip",
+            name = "smg_extendedclip",
             amount = 50,
             info = {},
             costs = {
                 ["metalscrap"] = 190,
                 ["steel"] = 305,
                 ["rubber"] = 85,
-                ["smg_extendedclip"] = 1,
             },
             type = "item",
-            slot = 7,
+            slot = 3,
             threshold = 25,
-            points = 8,
+            points = 3,
         },
         [4] = {
-            name = "rifle_drummag",
+            name = "microsmg_extendedclip",
             amount = 50,
             info = {},
             costs = {
                 ["metalscrap"] = 205,
                 ["steel"] = 340,
                 ["rubber"] = 110,
-                ["smg_extendedclip"] = 2,
             },
             type = "item",
-            slot = 8,
+            slot = 4,
             threshold = 50,
-            points = 8,
+            points = 4,
         },
         [5] = {
-            name = "smg_flashlight",
+            name = "smg_drum",
             amount = 50,
             info = {},
             costs = {
@@ -334,12 +274,12 @@ Config.AttachmentCrafting = { -- Attachment crafting recipes
                 ["rubber"] = 130,
             },
             type = "item",
-            slot = 3,
+            slot = 5,
             threshold = 75,
-            points = 3,
+            points = 5,
         },
         [6] = {
-            name = "smg_extendedclip",
+            name = "smg_scope",
             amount = 50,
             info = {},
             costs = {
@@ -348,86 +288,89 @@ Config.AttachmentCrafting = { -- Attachment crafting recipes
                 ["rubber"] = 145,
             },
             type = "item",
-            slot = 4,
+            slot = 6,
             threshold = 100,
-            points = 4,
+            points = 6,
         },
         [7] = {
-            name = "smg_suppressor",
+            name = "assaultrifle_extendedclip",
             amount = 50,
             info = {},
             costs = {
                 ["metalscrap"] = 270,
                 ["steel"] = 435,
                 ["rubber"] = 155,
+                ["smg_extendedclip"] = 1,
             },
             type = "item",
-            slot = 5,
+            slot = 7,
             threshold = 150,
-            points = 5,
+            points = 7,
         },
         [8] = {
-            name = "smg_scope",
+            name = "assaultrifle_drum",
             amount = 50,
             info = {},
             costs = {
                 ["metalscrap"] = 300,
                 ["steel"] = 469,
                 ["rubber"] = 170,
+                ["smg_extendedclip"] = 2,
             },
             type = "item",
-            slot = 6,
+            slot = 8,
             threshold = 200,
-            points = 6,
+            points = 8,
         },
     }
 }
 
-MaxInventorySlots = 41 -- Player inventory slot amount
+MaxInventorySlots = 41
 
-BackEngineVehicles = { -- Vehicles which has its engine on back side of the vehicle
-    'ninef',
-    'adder',
-    'vagner',
-    't20',
-    'infernus',
-    'zentorno',
-    'reaper',
-    'comet2',
-    'comet3',
-    'jester',
-    'jester2',
-    'cheetah',
-    'cheetah2',
-    'prototipo',
-    'turismor',
-    'pfister811',
-    'ardent',
-    'nero',
-    'nero2',
-    'tempesta',
-    'vacca',
-    'bullet',
-    'osiris',
-    'entityxf',
-    'turismo2',
-    'fmj',
-    're7b',
-    'tyrus',
-    'italigtb',
-    'penetrator',
-    'monroe',
-    'ninef2',
-    'stingergt',
-    'surfer',
-    'surfer2',
-    'comet3',
+BackEngineVehicles = {
+    [`ninef`] = true,
+    [`adder`] = true,
+    [`vagner`] = true,
+    [`t20`] = true,
+    [`infernus`] = true,
+    [`zentorno`] = true,
+    [`reaper`] = true,
+    [`comet2`] = true,
+    [`comet3`] = true,
+    [`jester`] = true,
+    [`jester2`] = true,
+    [`cheetah`] = true,
+    [`cheetah2`] = true,
+    [`prototipo`] = true,
+    [`turismor`] = true,
+    [`pfister811`] = true,
+    [`ardent`] = true,
+    [`nero`] = true,
+    [`nero2`] = true,
+    [`tempesta`] = true,
+    [`vacca`] = true,
+    [`bullet`] = true,
+    [`osiris`] = true,
+    [`entityxf`] = true,
+    [`turismo2`] = true,
+    [`fmj`] = true,
+    [`re7b`] = true,
+    [`tyrus`] = true,
+    [`italigtb`] = true,
+    [`penetrator`] = true,
+    [`monroe`] = true,
+    [`ninef2`] = true,
+    [`stingergt`] = true,
+    [`surfer`] = true,
+    [`surfer2`] = true,
+    [`gp1`] = true,
+    [`autarch`] = true,
+    [`tyrant`] = true
 }
 
-Config.MaximumAmmoValues = { -- Weapon specific maximum ammo count
+Config.MaximumAmmoValues = {
     ["pistol"] = 250,
     ["smg"] = 250,
     ["shotgun"] = 200,
     ["rifle"] = 250,
 }
-```
